@@ -1,0 +1,11 @@
+streamlit>=1.28.0
+streamlit-folium>=0.17.0
+folium>=0.14.0
+google-generativeai>=0.3.0
+google-api-python-client>=2.108.0
+requests>=2.31.0
+sentence-transformers>=2.2.2
+numpy>=1.24.0
+spacy>=3.7.0
+scispacy>=0.5.0
+https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.5.4/en_ner_bc5cdr_md-0.5.4.tar.gz
