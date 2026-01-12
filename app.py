@@ -1,3 +1,5 @@
+import sys
+import subprocess
 from youtube_videos2 import YouTubeExtractor
 from medical_finder import NearbyMedicalFinder
 import streamlit as st
@@ -7,11 +9,29 @@ import requests
 
 import spacy
 import scispacy
-sci_nlp = spacy.load("en_ner_bc5cdr_md")
+
+MODEL_NAME = "en_ner_bc5cdr_md"
+MODEL_URL = "https://s3-us-west-2.amazonaws.com/ai2-s2-scispacy/releases/v0.5.4/en_ner_bc5cdr_md-0.5.4.tar.gz"
+
+@st.cache_resource
+def load_bc5cdr():
+    try:
+        return spacy.load(MODEL_NAME)
+    except OSError:
+        st.warning("Installing medical NER model (first run only)...")
+        subprocess.check_call([
+            sys.executable,
+            "-m",
+            "pip",
+            "install",
+            MODEL_URL
+        ])
+        return spacy.load(MODEL_NAME)
 
 def process_text(text):
     if len(text) > 100:
         return False
+    sci_nlp = load_bc5cdr()
     doc = sci_nlp(text)
     return any(ent.label_ == "DISEASE" for ent in doc.ents)
 
@@ -456,7 +476,7 @@ if st.button("🔍 SEARCH") or symptoms:
 
     else:
         st.warning("Please enter symptoms first!")
-
 if __name__ == "__main__":
     st.markdown("---")
     st.markdown("*Made with ❤️ by Atmajo Burman*")
+
