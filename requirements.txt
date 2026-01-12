@@ -6,4 +6,5 @@ google-generativeai
 google-api-python-client
 requests
 sentence-transformers
-numpy
+numpy<2.0
+
