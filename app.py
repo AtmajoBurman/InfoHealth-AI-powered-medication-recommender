@@ -1,15 +1,40 @@
+import streamlit as st
+
+# Config
+st.set_page_config(
+    page_title="Info-Health",
+    page_icon="🩺",
+    layout="wide",
+    initial_sidebar_state="collapsed"
+)
+# =========================
+# ENV + IMPORTS
+# =========================
+import os
+os.environ["THINC_OPS"] = "numpy"
+
 import spacy
 from youtube_videos2 import YouTubeExtractor
 from medical_finder import NearbyMedicalFinder
-import streamlit as st
+
 import folium
 from streamlit_folium import st_folium
 import requests
 
-sci_nlp = spacy.load("en_ner_bc5cdr_md")
+# =========================
+# LOAD spaCy SAFELY
+# =========================
+@st.cache_resource
+def load_spacy_model():
+    return spacy.load("en_ner_bc5cdr_md")
 
-def process_text(text):
-    if len(text) > 100:
+sci_nlp = load_spacy_model()
+print("✅ Medical NLP model loaded successfully.")
+# =========================
+# UTILS
+# =========================
+def process_text(text: str) -> bool:
+    if not text or len(text) > 100:
         return False
     doc = sci_nlp(text)
     return any(ent.label_ == "DISEASE" for ent in doc.ents)
@@ -34,13 +59,7 @@ def check_network_connectivity():
     
     return False
 
-# Config
-st.set_page_config(
-    page_title="🩺 Info-Health",
-    page_icon="🏥",
-    layout="wide",
-    initial_sidebar_state="collapsed"
-)
+
 
 # Custom CSS (Dark theme + golden tabs)
 st.markdown("""
@@ -158,7 +177,9 @@ if 'cached_clinics' not in st.session_state:
 
 # Header
 st.markdown(
-    '<div class="header"><h1 style="color: white; text-align: center;">🏥 MED FINDER</h1></div>',
+    '<div style="background:#2D1B4A;padding:1rem;border-radius:15px">'
+    '<h1 style="color:white;text-align:center">🩺 Info-Heal<span style="color:red">+</span>h</h1>'
+    '</div>',
     unsafe_allow_html=True
 )
 
@@ -181,7 +202,7 @@ symptoms = search_col.text_input(
 )
 
 
-if process_text(symptoms):
+if not process_text(symptoms):
         st.warning("Sorry, We could not detect any medical keywords. We request you to be a bit more specific 🙁")
         symptoms = ""
         # st.session_state.cached_videos = []
@@ -212,8 +233,11 @@ with col2:
         st.session_state.active_tab = "clinics"
         st.markdown('<button class="tab-active">', unsafe_allow_html=True)
 
+
+search_clicked = st.button("🔍 SEARCH")
+
 # Content based on tab
-if st.button("🔍 SEARCH") or symptoms:
+if search_clicked or symptoms:
     if symptoms: 
         if symptoms != st.session_state.last_query:
             # Initialize all variables to safe defaults
@@ -458,5 +482,3 @@ if st.button("🔍 SEARCH") or symptoms:
 if __name__ == "__main__":
     st.markdown("---")
     st.markdown("*Made with ❤️ by Atmajo Burman*")
-
-
