@@ -8,7 +8,7 @@ InfoHealth is an AI-powered health information system that extracts medical enti
 Experience the complete InfoHealth system live, including symptom input, AI-powered keyword refinement, and medical resource recommendations.
 
 🎥 **Project Presentation (Must-Watch | 1 Minute)**  
-⭐ **[Watch the AI-Generated Presentation Video](LINK_HERE)** ⭐  
+⭐ **[Watch the AI-Generated Presentation Video](https://drive.google.com/file/d/1UM0wj5mzRgpvvs1niBlgBvqvzH7B5837/view?usp=sharing)** ⭐  
 This short video is the **official project walkthrough**, created from the Google Slides presentation.  
 📌 *Highly recommended for recruiters and evaluators to quickly understand the project’s motivation, architecture, and outcomes.*
 
