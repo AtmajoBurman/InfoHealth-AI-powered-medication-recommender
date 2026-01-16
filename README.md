@@ -54,3 +54,10 @@ For Testing we have attached two notebooks and a Reports markdown file:
 ├── sciSpacy_usage.ipynb
 ├── Reports.md
 ```
+
+## 📜 **License**
+
+This project is open-source and available under the MIT License.
+
+_Made with love by **Atmajo Burman** ❤️_
+
