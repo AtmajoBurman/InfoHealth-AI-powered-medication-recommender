@@ -13,7 +13,7 @@ This short video is the **official project walkthrough**, created from the Googl
 📌 *Highly recommended for recruiters and evaluators to quickly understand the project’s motivation, architecture, and outcomes.*
 
 🧪 **Hands-on Demonstration Video**  
-▶️ **[Watch the Practical Demo](LINK_HERE)**  
+▶️ **[Watch the Practical Demo](https://drive.google.com/file/d/1-KKRYbpMwM3KO8QR4NEPF5qYiavrA82X/view?usp=sharing)**  
 A real-time demonstration showcasing how users interact with the application and how recommendations are generated.
 
 ---
