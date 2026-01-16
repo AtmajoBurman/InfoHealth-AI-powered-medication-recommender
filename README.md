@@ -4,7 +4,7 @@ InfoHealth is an AI-powered health information system that extracts medical enti
 ## 🚀 Live Demo & Project Showcase
 
 🔗 **Live Application (Streamlit Deployment)**  
-👉 **[Access the InfoHealth App](LINK_HERE)**  
+👉 **[Access the InfoHealth App](https://infohealth-ai-powered-med-recommender-atmajo.streamlit.app/)**  
 Experience the complete InfoHealth system live, including symptom input, AI-powered keyword refinement, and medical resource recommendations.
 
 🎥 **Project Presentation (Must-Watch | 1 Minute)**  
