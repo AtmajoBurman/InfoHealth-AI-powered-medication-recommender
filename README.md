@@ -21,6 +21,10 @@ A real-time demonstration showcasing how users interact with the application and
 ### 👀 For Recruiters
 If you are short on time, we strongly recommend watching the **1-minute presentation video first**, followed by the **live application demo**, to get a complete understanding of the project in under **3 minutes**.
 
+> ⚠️ **Note:**
+> The **Get Live Location** button may currently fetch US-based coordinates due to browser and environment limitations.  
+> The intended behavior is to retrieve the user's actual device location.  
+> We are actively working on addressing this and will release a fix shortly.
 
 # What made us think about Info-Health? 🩺
 
