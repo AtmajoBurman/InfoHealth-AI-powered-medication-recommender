@@ -21,11 +21,6 @@ A real-time demonstration showcasing how users interact with the application and
 ### 👀 For Recruiters
 If you are short on time, we strongly recommend watching the **1-minute presentation video first**, followed by the **live application demo**, to get a complete understanding of the project in under **3 minutes**.
 
-> ⚠️ **Note:**
-> The **Get Live Location** button may currently fetch US-based coordinates due to browser and environment limitations.  
-> The intended behavior is to retrieve the user's actual device location.  
-> We are actively working on addressing this and will release a fix shortly.
-
 # What made us think about Info-Health? 🩺
 
 Modern information platforms such as **YouTube** and **map-based services** deliver highly relevant results when users provide **precise and well-defined keywords**. However, in medical contexts, this requirement introduces a significant **usability gap** ⚠️. Most users do not have a medical background and are often unfamiliar with the correct **clinical terminology** needed to describe their symptoms accurately.
