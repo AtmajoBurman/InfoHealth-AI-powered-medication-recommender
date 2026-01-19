@@ -28,38 +28,13 @@ class NearbyMedicalFinder:
         self.api_key = api_key
         self.symptom_embedding = None
 
-
-    # def generate_medical_queries(self, symptoms: List[str]) -> List[str]:
-    #     pass
-
-
     def embed_text(self, text: str) -> np.ndarray:
         return model.encode(text)
 
-
-    def geocode_address(self, address: str) -> tuple:
-        """Convert address to lat/lng using Geocoding API"""
-        url = "https://maps.googleapis.com/maps/api/geocode/json"
-        params = {
-            "address": address,
-            "key": self.api_key
-        }
-        try:
-            response = requests.get(url, params=params)
-            data = response.json()
-            if data["status"] == "OK" and data["results"]:
-                loc = data["results"][0]["geometry"]["location"]
-                return loc["lat"], loc["lng"]
-        except:
-            pass
-        return 23.5224, 87.3233  # Durgapur default
-
-
-    
     def find_nearby_places_new(self, lat: float, lng: float, queries: List[str],
                             radius: int = 5000) -> List[Dict]:
         """Places API (New) - Text Search + Nearby Search combo
-        Returns TOP 10 places with ≥2 stars rating only
+        Returns TOP 15 places with ≥2 stars rating only
         """
         all_places = []
 
@@ -119,6 +94,9 @@ class NearbyMedicalFinder:
         good_places = []
         
         for place in all_places:
+            distance_m = self.haversine(lat, lng,
+            place["location"]["latitude"],
+            place["location"]["longitude"])
             place_id = place["id"]
             rating = place.get("rating", 0)
             
@@ -141,10 +119,21 @@ class NearbyMedicalFinder:
                     "types": place.get("types", []),
                     "rating": rating,
                     "user_ratings_total": place.get("userRatingCount", 0),
-                    "vicinity": place.get("formattedAddress", "")
+                    "vicinity": place.get("formattedAddress", ""),
+                    "distance_m": distance_m
                 }
+
                 good_places.append(legacy_place)
                 print(f"✅ Kept {legacy_place['name']}: {rating}⭐")
+
+        good_places.sort(
+            key=lambda p: (
+                p["distance_m"] > 10_000,   # >10 km goes down
+                -p["rating"],               # higher rating first
+                -p["user_ratings_total"],   # more reviews first
+                p["distance_m"]             # nearer first
+            )
+        )
 
         # ✅ Return TOP 15 only (already sorted by relevance)
         return good_places[:15]
@@ -201,31 +190,12 @@ class NearbyMedicalFinder:
       # ✅ KEY FIX: Sort by DISTANCE first, then relevance
       return sorted(scored_places, key=lambda p: (p.distance_m, p.match_percent))[:15]
 
-
-
-    def get_live_location(self) -> tuple:
-      """Get approximate location from IP - works everywhere"""
-      try:
-          # Free IP geolocation (no API key needed)
-          response = requests.get('https://ipinfo.io/json')
-          data = response.json()
-          loc = data['loc'].split(',')
-          lat, lng = float(loc[0]), float(loc[1])
-          print(f"📍 Auto-detected: {data.get('city', 'Unknown')}")
-          return lat, lng
-      except:
-          # Fallback to Durgapur
-          print("📍 Using Durgapur default")
-          return 23.5224, 87.3233
-
-
     def haversine(self, lat1, lon1, lat2, lon2):
         R = 6371000
         phi1, phi2 = np.radians(lat1), np.radians(lat2)
         dphi, dlambda = np.radians(lat2-lat1), np.radians(lon2-lon1)
         a = np.sin(dphi/2)**2 + np.cos(phi1)*np.cos(phi2)*np.sin(dlambda/2)**2
         return 2 * R * np.arcsin(np.sqrt(a))
-
 
     def recommend_care(self, symptoms: List[str], medical_keywords: List[str], lat: float = None, 
                     lng: float = None, address: str = None, radius: int = 50000) -> List[CarePlace]:
@@ -247,4 +217,3 @@ class NearbyMedicalFinder:
         
         print(f"✅ Found {len(scored)} scored recommendations")
         return scored
-
