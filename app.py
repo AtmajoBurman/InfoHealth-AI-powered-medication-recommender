@@ -207,14 +207,34 @@ if not process_text(symptoms):
         symptoms = ""
         # st.session_state.cached_videos = []
 
+#////////////////////////////////////////
+# GPS Button Locking
+if "gps_locked" not in st.session_state:
+    st.session_state.gps_locked = False
+#////////////////////////////////////////
 # GPS Button
-if gps_col.button("📍 LIVE GPS", use_container_width=True):
-    lat, lng = medical_finder.get_live_location()  # Uses IP geolocation
-    st.session_state.current_lat = lat
-    st.session_state.current_lng = lng
+if gps_col.button(
+    "📍 LIVE GPS",
+    use_container_width=True,
+    disabled=st.session_state.gps_locked
+):
     st.session_state.use_gps = True
+    
+if st.session_state.get("use_gps", False):
+    lat, lng = get_device_coordinates()
 
-    st.success(f"📍 GPS: {lat:.4f}, {lng:.4f}")
+    if lat is None and lng is None:
+        st.info("📍 Waiting for GPS permission...")
+    elif lat == -1 and lng == -1:
+        st.error("📍 GPS not available")
+        st.session_state.use_gps = False
+    else:
+        st.session_state.current_lat = lat
+        st.session_state.current_lng = lng
+        st.session_state.use_gps = False
+        st.session_state.gps_locked = True  # Lock button after use
+        st.success(f"📍 GPS: {lat:.4f}, {lng:.4f}")
+
 
 # Tab system
 col1, col2 = st.columns(2)
@@ -482,3 +502,4 @@ if search_clicked or symptoms:
 if __name__ == "__main__":
     st.markdown("---")
     st.markdown("*Made with ❤️ by Atmajo Burman*")
+
