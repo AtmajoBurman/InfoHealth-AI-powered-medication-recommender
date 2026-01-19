@@ -20,7 +20,7 @@ from medical_finder import NearbyMedicalFinder
 import folium
 from streamlit_folium import st_folium
 import requests
-
+from get_coordinates import get_device_coordinates
 # =========================
 # LOAD spaCy SAFELY
 # =========================
@@ -502,4 +502,5 @@ if search_clicked or symptoms:
 if __name__ == "__main__":
     st.markdown("---")
     st.markdown("*Made with ❤️ by Atmajo Burman*")
+
 
