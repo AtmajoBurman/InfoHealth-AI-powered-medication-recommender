@@ -18,7 +18,7 @@ A real-time demonstration showcasing how users interact with the application and
 
 ---
 
-### 👀 For Recruiters
+### 👀 For Readers
 If you are short on time, we strongly recommend watching the **1-minute presentation video first**, followed by the **live application demo**, to get a complete understanding of the project in under **3 minutes**.
 
 # What made us think about Info-Health? 🩺
