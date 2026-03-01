@@ -21,6 +21,19 @@ A real-time demonstration showcasing how users interact with the application and
 ### 👀 For Readers
 If you are short on time, we strongly recommend watching the **1-minute presentation video first**, followed by the **live application demo**, to get a complete understanding of the project in under **3 minutes**.
 
+## **📸 APPLICATION SCREENSHOTS**
+
+### How it opens up 😊
+![Front Page](https://github.com/AtmajoBurman/InfoHealth-AI-powered-medication-recommender/blob/main/InfoHealth_SS/front.png)
+### Videos have been retrieved 😊
+![Videos Retrieval](https://github.com/AtmajoBurman/InfoHealth-AI-powered-medication-recommender/blob/main/InfoHealth_SS/videos.png)
+### Process of Clinics retrieval going on 😊
+![Clinics Search](https://github.com/AtmajoBurman/InfoHealth-AI-powered-medication-recommender/blob/main/InfoHealth_SS/clin_s.png)
+### Clinics have been retrieved 😊
+![Clinics Display](https://github.com/AtmajoBurman/InfoHealth-AI-powered-medication-recommender/blob/main/InfoHealth_SS/clin_sh.png)
+### See on map how far are you from each of the clinics 😊
+![Interactive Map Display](https://github.com/AtmajoBurman/InfoHealth-AI-powered-medication-recommender/blob/main/InfoHealth_SS/maps.png)
+
 # What made us think about Info-Health? 🩺
 
 Modern information platforms such as **YouTube** and **map-based services** deliver highly relevant results when users provide **precise and well-defined keywords**. However, in medical contexts, this requirement introduces a significant **usability gap** ⚠️. Most users do not have a medical background and are often unfamiliar with the correct **clinical terminology** needed to describe their symptoms accurately.
